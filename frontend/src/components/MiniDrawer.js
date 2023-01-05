@@ -123,7 +123,7 @@ const Mbutton=styledd(Button)`
     // background-color:#ff1;
     transform:translate(5px,-100%);
     // visibility:hidden;
-    transition:left 0.1s ease-in;
+    transition:left 0.2s ;
     
   }
   p{
@@ -132,7 +132,7 @@ const Mbutton=styledd(Button)`
     border-radius:5px;
     opacity:0.8;
     text-transform:none;
-    transition:all 0.1s ease-in;
+    transition:all 0.2s ;
     -webkit-backdrop-filter: blur(3px);
      backdrop-filter: blur(3px);
     // -webkit-backdrop-filter: blur(3px);
@@ -146,6 +146,9 @@ const Mbutton=styledd(Button)`
       margin-left:2px;
       margin-right:2px;
       transform:translate(0,10%);
+    }
+    :hover{
+      text-shadow: 0.5px 0.5px 0.1em black;
     }
   }
   :hover .comment{
@@ -228,7 +231,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer({username}) {
+export default function MiniDrawer({username,tname}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [menuSelectedIndex, setMenuSelectedIndex] = React.useState(0);
@@ -295,8 +298,8 @@ export default function MiniDrawer({username}) {
           }}><i className="fa-solid fa-user" ></i></Box> } onClick={()=>{navigate('/')}} zIndex={1} enabled disableElevation Hover>
             <Typography variant="h6" noWrap component="div">
             {/* {username.slice(0,username.indexOf('@'))} */}
-            {username?username.slice(0,username.indexOf('@')):username}
-            
+            {/* {username?username.slice(0,username.indexOf('@')):username} */}
+            {tname}
           </Typography>
           <div className='comment'><p><i className="fa-solid fa-arrow-right"></i>home</p></div>
           </Mbutton>
@@ -370,6 +373,7 @@ export default function MiniDrawer({username}) {
         <DrawerHeader />
         {/* <Typography paragraph> */}
           <Outlet context={[username]} />
+          <Outlet context={[tname]}/>
         {/* </Typography> */}
       </Box>
     </Box>
