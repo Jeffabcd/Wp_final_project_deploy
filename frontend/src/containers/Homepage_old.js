@@ -1,5 +1,5 @@
 import MiniDrawer from '../components/MiniDrawer';
-function Homepage ({ username }) {
-    return (<MiniDrawer username={username} />)
+function Homepage ({ username ,tname}) {
+    return (<MiniDrawer username={username} tname={tname}/>)
 }
 export default Homepage;

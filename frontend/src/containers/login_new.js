@@ -117,7 +117,15 @@ const Warning=styled.p`
 // 	console.log(body);
 // });
 const TOKEN_KEY ='token';
+const alert={
+	'':'',
+	's':"Email duplicate!",
+	'sn':"Name cannot be empty!",
+	'se':"Email cannot be empty!",
+	'sp':"Password cannot be empty!",
+	'sps':"Password must be at least 6 characters long!",
 
+}
 const LoginPage=()=>{
     const [inup,setInup]=useState(true);
 	const [password, setPassword] = useState("");
@@ -128,17 +136,25 @@ const LoginPage=()=>{
 	const [passwords,setPasswords]=useState('');
 	const iref=useRef(null);
 	const iref2=useRef(null);
+	const irefn=useRef(null);
+	const irefe=useRef(null);
+	const irefp=useRef(null);
     // const ref = React.useRef(null);
 	let location=useLocation();
 	const {status,setStatus,data,handlelogin,handlesignup,handleUpdateInfo,err,setErr,setMe}=useApp();
 	const navigate=useNavigate();
+	
 	useEffect(()=>{
-		iref.current.focus();
-	},[email])
-	const handlekeydown=(e)=>{
-		console.log(e.key)
+		if(inup){
+			iref.current.focus();
+		}else{
+			irefn.current.focus();
+		}
+	},[inup])
+	const handlekeydown=(e,r)=>{
+		
 		if(e.key==='Enter'){
-			iref2.current.focus();
+			r.current.focus();
 		}
 	}
 	useEffect(()=>{
@@ -156,7 +172,6 @@ const LoginPage=()=>{
 		try{
 			setLoading(true);
 			const {data:{user,token}}=await api.post('/users/login',{email,password})
-			setLoading(false);
 			if(token){
 				localStorage.setItem(TOKEN_KEY,token);
 				setStatus('LoggedIn');
@@ -165,20 +180,30 @@ const LoginPage=()=>{
 				console.log(user);
 			}
 		}catch(e){
-			setErr('l')
+			setErr('l');
 		}
+		setLoading(false);
+
 	}
 	const handlesubmits=async(e)=>{
 		e.preventDefault();
 		// handlesignup(names,emails,passwords);
+		if(!names) setErr('sn');
+		else if(!emails) setErr('se');
+		else if(!passwords)setErr('sp');
+		else if(passwords.length<6) setErr('sps');
+		else{
 		try{
 			setLoading(true);
 			const {data:{user,token}}= await api.post('/users/',{name:names,email:emails,password:passwords})
 			setErr('n');
-			setLoading(false);
+			setPassword(passwords);setEmail(emails);
+			setNames('');setEmails('');setPasswords('');
 		}catch(e){
 			console.log(e);
 			setErr('s');
+		}
+		setLoading(false);
 		}
 	}
 	useEffect(()=>{
@@ -203,10 +228,10 @@ const LoginPage=()=>{
 				<Ma href="#" className="social"><i className="fab fa-linkedin-in"></i></Ma>
 			</div> */}
 			<Mspan> use your email for registration</Mspan>
-			<input type="text" placeholder="Name" className={login.apple} onChange={(e)=>{setNames(e.target.value)}}/>
-			<input type="email" placeholder="Email" className={login.apple} onChange={(e)=>{setEmails(e.target.value)}}/>
-			<input type="password" placeholder="Password" className={login.apple} onChange={(e)=>{setPasswords(e.target.value)}}/>
-			{err==='s'?<Warning>Email or name duplicate!</Warning>:<></>}
+			<input type="text" placeholder="Name*" className={login.apple} onChange={(e)=>{setNames(e.target.value)}} value={names} ref={irefn} onKeyDown={(e)=>handlekeydown(e,irefe)}/>
+			<input type="email" placeholder="Email*" className={login.apple} onChange={(e)=>{setEmails(e.target.value)}} value={emails} ref={irefe} onKeyDown={(e)=>handlekeydown(e,irefp)}/>
+			<input type="password" placeholder="Password*" className={login.apple} onChange={(e)=>{setPasswords(e.target.value)}} value={passwords} ref={irefp}/>
+			<Warning>{alert[err]}</Warning>
 			<Mbutton >Sign Up</Mbutton>
 		</form>
 	</div>
@@ -220,8 +245,8 @@ const LoginPage=()=>{
 				<Ma href="#" className="social"><i className="fab fa-linkedin-in"></i></Ma>
 			</div> */}
 			<Mspan>use your account</Mspan>
-			<input type="email" placeholder="Email" className={login.apple} onChange={(e)=>{setEmail(e.target.value)}} ref={iref} onKeyDown={(e)=>{handlekeydown(e)}}/>
-			<input type="password" placeholder="Password" className={login.apple} onChange={(e)=>{setPassword(e.target.value)}} ref={iref2} />
+			<input type="email" placeholder="Email*" className={login.apple} onChange={(e)=>{setEmail(e.target.value)}} ref={iref} onKeyDown={(e)=>{handlekeydown(e,iref2)}} value={email}/>
+			<input type="password" placeholder="Password*" className={login.apple} onChange={(e)=>{setPassword(e.target.value)}} ref={iref2} value={password}/>
 			{err==='l'?<Warning>Worng email or password!</Warning>:<></>}
 			{/* <Ma href="#">Forgot your password?</Ma> */}
 			<Mbutton>Sign In</Mbutton>

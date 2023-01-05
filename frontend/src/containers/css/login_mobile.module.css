@@ -19,7 +19,9 @@
 		align-items: center;
 		justify-content: center; 
 	}
-	
+	.form-structor{
+		width:100%;
+	}
 }
 .container_body .sochilai{
 	height:0;
@@ -42,7 +44,7 @@
 	 background-color: #222;
 	 border-radius: 15px;
 	 height: 550px;
-	 width: 350px;
+	 width: 100%;
 	 position: relative;
 	 overflow: hidden;
 	 margin-left: 0;

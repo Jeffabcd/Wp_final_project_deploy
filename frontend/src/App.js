@@ -70,7 +70,7 @@ function App() {
     // <ParkInModal></ParkInModal>
     // <Homepage username={username}/> :
     // <LogIn onLogin={ () => setLogin(true) } setUsername={setUsername}/>
-    (login?(status==='LoggedIn'?<Menu val={setLogin} name={me.name}/>:<Homepage username={me.email}/>):(status==="LoggedOut"?<FirstPage/>:(status==='LoggingIn'?(device==='PC'?<LoginPage />:<Loginmobile/>):
+    (login?(status==='LoggedIn'?<Menu val={setLogin} name={me.name}/>:<Homepage username={me.email} tname={me.name}/>):(status==="LoggedOut"?<FirstPage/>:(status==='LoggingIn'?(device==='PC'?<LoginPage />:<Loginmobile/>):
     ((status==='LoggedIn')?<Menu val={setLogin}/>:<></>))))
   );
 }

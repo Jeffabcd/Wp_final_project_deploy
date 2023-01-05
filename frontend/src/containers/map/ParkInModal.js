@@ -3,13 +3,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import "../css/ParkInModal.scss"
+import "../css/ParkinModal.css"
 import { Input, position } from '@chakra-ui/react';
 import ReactStars from "react-rating-stars-component" ;
 import { useState, useEffect} from 'react';
 import axios from '../../connection';
 import { formatRelative } from "date-fns";
 import { useOutletContext } from 'react-router-dom';
+import styled from 'styled-components';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -63,6 +64,7 @@ export default function ParkInModal({openParking, setOpenParking, spot, setError
 
   useEffect(()=>{
     setRating(bikeClicked);
+    console.log(bikeClicked);
   }, [bikeClicked])
 
   const saveMyBike = async(data) => {
@@ -136,15 +138,62 @@ export default function ParkInModal({openParking, setOpenParking, spot, setError
             activeColor="#ffd700"
           /> */
           } 
-            
-            <img className={bikeClicked>0 ? "bike bikeClicked" : "bike"} width="30px" src="bicycle-solid.svg" onClick={()=>{ bikeClicked===1 ? setBikeClicked(0) : setBikeClicked(1)}}></img>
+            {/* <div className='bikeselect'>
+              <span>a</span>
+              <span>a</span>
+              <span>a</span>
+              <span>a</span>
+              <sapn>a</sapn>
+            </div> */}
+            {/* <p>fuck</p> */}
+            <form className="rating" onChange={(e)=>setBikeClicked(e.target.value)}>
+              <label>
+                <input type="radio" name="stars" value="1" />
+                <span className="icon i1">★</span>
+              </label>
+              <label>
+                <input type="radio" name="stars" value="2" />
+                <span className="icon i1">★</span>
+                <span className="icon i2">★</span>
+              </label>
+              <label>
+                <input type="radio" name="stars" value="3" />
+                <span className="icon i1">★</span>
+                <span className="icon i2">★</span>
+                <span className="icon i3">★</span>   
+              </label>
+              <label>
+                <input type="radio" name="stars" value="4" />
+                <span className="icon i1">★</span>
+                <span className="icon i2">★</span>
+                <span className="icon i3">★</span>
+                <span className="icon i4">★</span>
+              </label>
+              <label>
+                <input type="radio" name="stars" value="5" />
+                <span className="icon i1">★</span>
+                <span className="icon i2">★</span>
+                <span className="icon i3">★</span>
+                <span className="icon i4">★</span>
+                <span className="icon i5">★</span>
+              </label>
+            </form>
+            {/* <p>fuck</p> */}
+            {/* <img className={bikeClicked>0 ? "bike bikeClicked" : "bike"} width="30px" src="bicycle-solid.svg" onClick={()=>{ bikeClicked===1 ? setBikeClicked(0) : setBikeClicked(1)}}></img>
 
             <img className={bikeClicked>1 ? "bike bikeClicked" : "bike"} width="30px" src="bicycle-solid.svg" onClick={()=>{ bikeClicked===2 ? setBikeClicked(0) : setBikeClicked(2)}}></img>
           
             <img className={bikeClicked>2 ? "bike bikeClicked" : "bike"} width="30px" src="bicycle-solid.svg" onClick={()=>{ bikeClicked===3 ? setBikeClicked(0) : setBikeClicked(3)}}></img>
             <img className={bikeClicked>3 ? "bike bikeClicked" : "bike"} width="30px" src="bicycle-solid.svg" onClick={()=>{ bikeClicked===4 ? setBikeClicked(0) : setBikeClicked(4)}}></img>
-            <img className={bikeClicked>4 ? "bike bikeClicked" : "bike"} width="30px" src="bicycle-solid.svg" onClick={()=>{ bikeClicked===5 ? setBikeClicked(0) : setBikeClicked(5)}}></img>
-            <Button onClick={()=>{addParkingSpot(); parkOnclick()}}><h3>Park In</h3></Button>
+            <img className={bikeClicked>4 ? "bike bikeClicked" : "bike"} width="30px" src="bicycle-solid.svg" onClick={()=>{ bikeClicked===5 ? setBikeClicked(0) : setBikeClicked(5)}}></img> */}
+            {/* <Button onClick={()=>{addParkingSpot(); parkOnclick()}}><h3>Park In</h3></Button> */}
+            <a className="bta" href="#" onClick={()=>{addParkingSpot(); parkOnclick()}}>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Park In!
+            </a>
             {/* <img width="30px" src="bicycle-solid.svg"></img>
             <img width="30px" src="bicycle-solid.svg"></img>
             <img width="30px" src="bicycle-solid.svg"></img>
